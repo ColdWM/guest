@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Guest">
+
+  <!-- Use type aliases to avoid typing the full classname every time. -->
+  <typeAlias alias="Guest" type="dto.Guest"/>
+
+  <!-- Result maps describe the mapping between the columns returned
+       from a query, and the class properties.  A result map isn't
+       necessary if the columns (or aliase	s) match to the properties 
+       exactly. -->
+  <resultMap id="GuestResult" class="Guest">
+    <result property="guestE" column="guest_Email"/>
+    <result property="guestText" column="guest_text"/>
+    <result property="guestDate" column="guest_date"/>
+    <result property="guestPA" column="guest_PA"/>
+  </resultMap>
+
+  <!-- Select with no parameters using the result map for Account class. -->	
+  <select id="getGuests" parameterClass="String" resultMap="GuestResult">
+    SELECT *,TO_CHAR(guest_date, 'YYYY/MM/DD HH24:MI') AS guest_date
+    FROM guest
+    ORDER BY guest_date
+  </select>
+ <!--  <select id="getReply" parameterClass="String" resultMap="ReplyResult">
+  	SELECT *
+  	FROM reply
+  	WHERE reply_id=#replyId#
+  </select>
+  <select id="replyIsExist" parameterClass="String" resultClass="String">
+  	SELECT reply_id
+  	FROM reply
+  	WHERE reply_id=#replyId#
+  </select>
+  <insert id="replyInsert" parameterClass="Reply">
+  	INSERT INTO 	
+    reply(reply_id, reply_text, reply_date, mem_id, post_id, nickname) 
+    VALUES('R' || TO_CHAR(reply_id_serial.NEXT_VALUE,'09999'),#replyText#,SYSDATETIME, #memId#, #postId#, #nickname#)
+  </insert>
+  <update id="replyUpdate" parameterClass="Reply">
+    UPDATE 
+    reply
+    SET 
+    reply_text=#replyText#
+    WHERE reply_id=#replyId#
+  </update>
+  <delete id="replyDelete" parameterClass="String">
+  	DELETE FROM
+    reply 
+    WHERE reply_id=#replyId#
+  </delete> -->
+</sqlMap>

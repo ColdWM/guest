@@ -7,6 +7,20 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<a href="hello.html">Say Hello</a>  
+	<a href="hello.nhn">Say Hello</a>  
+	<script type = "text/javascript" 
+ src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js">
+ 
+</script>
+<title>Insert title here</title>
+</head>
+<body>
+ <div>old content</div>
+ <div>old content</div>
+ <div>old content</div>
+ <div>old content</div>
+ <script>
+  jQuery('div').hide().text('new content').addClass("updatedContent").show();
+ </script>
 </body>
 </html>
