@@ -26,31 +26,4 @@
     FROM guest
     ORDER BY guest_date
   </select>
- <!--  <select id="getReply" parameterClass="String" resultMap="ReplyResult">
-  	SELECT *
-  	FROM reply
-  	WHERE reply_id=#replyId#
-  </select>
-  <select id="replyIsExist" parameterClass="String" resultClass="String">
-  	SELECT reply_id
-  	FROM reply
-  	WHERE reply_id=#replyId#
-  </select>
-  <insert id="replyInsert" parameterClass="Reply">
-  	INSERT INTO 	
-    reply(reply_id, reply_text, reply_date, mem_id, post_id, nickname) 
-    VALUES('R' || TO_CHAR(reply_id_serial.NEXT_VALUE,'09999'),#replyText#,SYSDATETIME, #memId#, #postId#, #nickname#)
-  </insert>
-  <update id="replyUpdate" parameterClass="Reply">
-    UPDATE 
-    reply
-    SET 
-    reply_text=#replyText#
-    WHERE reply_id=#replyId#
-  </update>
-  <delete id="replyDelete" parameterClass="String">
-  	DELETE FROM
-    reply 
-    WHERE reply_id=#replyId#
-  </delete> -->
 </sqlMap>
