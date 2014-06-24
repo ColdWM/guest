@@ -6,25 +6,62 @@ import="java.util.ArrayList,dto.Guest,java.util.HashMap"
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Guest book to Suchan</title>
+<link href="css/bootstrap.css" rel="stylesheet" media="screen">
+<link href="css/bootstrap-responsive.css" rel="stylesheet"
+	media="screen">
+	<script type="text/javascript">
+	function guestInsert() {
+		document.guestInsertform.submit();
+		alert("방명록이 등록되었습니다.");
+	}
+	</script>
+
 </head>
 <body>
 <center>
-${message}
-<table border="1">
+${message}<br>
 
-	<c:forEach items="${requestScope.guestList}" var="guest">
-				<tr>
-					<td>${guest.guestE}</td>
-					<td>
-						${guest.guestText}
+<form action="save.nhn" name="guestInsertform" method="post">
+<div id="legend">
+      <legend class="">방명록 ^_^</legend>
+    </div>
+
+		<div class="control-group">
+				<!-- Email -->
+				<label class="control-label" for="username">E mail</label>
+				<div class="controls">
+					<input type="email" id="email" name="guestE" placeholder="Email"
+						class="input-xlarge">
+				</div>
+			</div>
+
+			<div class="control-group">
+				<!-- Password-->
+				<label class="control-label" for="password">Password</label>
+				<div class="controls">
+					<input type="password" id="password" name="guestPA" placeholder="password"
+						class="input-xlarge">
+				</div>
+			</div>
+		<br>
+		<textarea class="span8" rows="8" id="guestText" name="guestText" placeholder="내용을 입력하세요."></textarea><br>
+		<a href="javascript:guestInsert();" role="button" class="btn btn-inverse">방명록 쓰기</a></td>
 						
-					</td>
-					<td>${guest.guestDate}</td>
-				</tr>		
-			</c:forEach>
+</form>
+	<c:forEach items="${requestScope.guestList}" var="guest">
+		<div class="well">
+		${guest.guestE}&nbsp;&nbsp;&nbsp;${guest.guestDate}<a href="updateMove.nhn?guestId=${guest.guestId}">수정하기</a><br>
+		<textarea class="span8" rows="8" readonly="readonly">${guest.guestText}</textarea></div>
+		
+		
+	</c:forEach>
 			
-			</table>
 			</center>
+			<script src="http://code.jquery.com/jquery.js"></script>
+	<script src="js/bootstrap.js"></script>
+	<script type="text/javascript">
+	</script>
+			
 </body>
 </html>

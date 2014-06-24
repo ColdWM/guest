@@ -44,7 +44,7 @@ public class GuestDAO{
 	
 	public void insert(Guest guest) {		
 		try {
-			sqlMapper.insert("insert", guest);
+			sqlMapper.insert("insert", guest);			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -81,18 +81,30 @@ public class GuestDAO{
 	}
 
 	
-	public Guest getGuest(String guestPA) {
+	public Guest getGuest(String guestId) {
 		Guest guest=null;
 		
 		try {
-			guest=(Guest)sqlMapper.queryForObject("getGuest", guestPA);
+			guest=(Guest)sqlMapper.queryForObject("getGuest", guestId);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
-	    //if(guest == null ) throw new RecordNotFoundException(custId);
 		
 		return guest;
+	}
+	
+	public boolean PACheck(Guest guest){
+		boolean flag=false;
+		
+		try{
+			Guest result = (Guest)sqlMapper.queryForObject("PACheck", guest);
+			if(result!=null) flag=true;
+		}catch(SQLException e){
+			
+			e.printStackTrace();
+		}
+		return flag;
 	}
 
 }

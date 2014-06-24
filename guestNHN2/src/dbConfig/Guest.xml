@@ -18,12 +18,34 @@
     <result property="guestText" column="guest_text"/>
     <result property="guestDate" column="guest_date"/>
     <result property="guestPA" column="guest_PA"/>
+    <result property="guestId" column="guest_id"/>
+    <result property="guestMoDate" column="guest_mo_date"/>
   </resultMap>
 
   <!-- Select with no parameters using the result map for Account class. -->	
   <select id="getGuests" parameterClass="String" resultMap="GuestResult">
     SELECT *,TO_CHAR(guest_date, 'YYYY/MM/DD HH24:MI') AS guest_date
     FROM guest
-    ORDER BY guest_date
+    ORDER BY guest_date DESC
+  </select>
+  <select id="getGuest" parameterClass="String" resultMap="GuestResult">
+    SELECT *,TO_CHAR(guest_date, 'YYYY/MM/DD HH24:MI') AS guest_date
+    FROM guest
+    WHERE guest_id=#guestId#
+  </select>
+  <insert id="insert" parameterClass="Guest">
+  	INSERT INTO guest(guest_email, guest_text, guest_pa, guest_date,guest_mo_date,guest_id)
+  	VALUES(#guestE#, #guestText#, #guestPA#, SYSDATETIME, SYSDATETIME,'G' || TO_CHAR(guest_id_serial.NEXT_VALUE,'09999'))
+  </insert>
+  <update id="update" parameterClass="Guest">
+  	UPDATE guest
+  	SET guest_text=#guestText#,
+  		guest_pa=#guestPA#,
+  		guest_mo_date=SYSDATETIME
+  	WHERE guest_id=#guestId#  
+  </update>
+  <select id="PACheck" parameterClass="Guest" resultMap="GuestResult">
+  	SELECT * FROM guest
+  	WHERE guest_id=#guestId# AND guest_pa=#guestPA#
   </select>
 </sqlMap>

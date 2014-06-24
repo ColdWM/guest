@@ -5,16 +5,42 @@ public class Guest implements java.io.Serializable{
 	private String guestText = "";
 	private String guestPA;
 	private String guestDate;
+	private String guestId;
+	private String guestMoDate; // 수정 날짜
 	public Guest() {
 		super();
 	}
-	public Guest(String guestE, String guestText, String guestPA, String guestDate) {
+	public Guest(String guestE, String guestText, String guestPA, String guestDate,String guestMoDate) {
 		super();
 		if(guestE != null)	this.guestE = guestE;
 		setguestText(guestText);
 		this.guestPA = guestPA;
 		this.guestDate = guestDate;
+		this.guestMoDate = guestMoDate;
 	}
+	
+	public Guest(String guestE, String guestText, String guestPA) {
+		super();
+		if(guestE != null)	this.guestE = guestE;
+		setguestText(guestText);
+		this.guestPA = guestPA;
+	}
+	
+	public Guest(String guestE, String guestText, String guestPA, String guestId) {
+		super();
+		if(guestE != null)	this.guestE = guestE;
+		setguestText(guestText);
+		this.guestPA = guestPA;
+		this.guestId = guestId;
+	}
+	
+	public Guest(String guestPA, String guestId){
+		super();
+		this.guestPA = guestPA;
+		this.guestId = guestId;
+		
+	}
+	
 	public String getguestE() {
 		return guestE;
 	}
@@ -67,6 +93,12 @@ public class Guest implements java.io.Serializable{
 		} else if (!guestE.equals(other.guestE))
 			return false;
 		return true;
+	}
+	public String getGuestId() {
+		return guestId;
+	}
+	public void setGuestId(String guestId) {
+		this.guestId = guestId;
 	}
 	
 }
