@@ -3,6 +3,7 @@ package controller;
 
 import java.util.ArrayList;
 
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -14,6 +15,9 @@ import service.GuestService;
 import java.io.UnsupportedEncodingException;
 import dto.Guest;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 @Controller public class GuestController {        
        
         @RequestMapping("/hello")      
@@ -24,26 +28,37 @@ import dto.Guest;
         	request.setAttribute("guestList", guestList);
         	nextPage.addObject("guestList",guestList);
         	nextPage.setViewName("list.jsp");
-        	
-            //String message = "Hello World, Spring 3.0!";           
-            //return new ModelAndView("hello", "message", message); 
        
         return new ModelAndView("hello", "guestList", guestList);       
     }   
         
         @RequestMapping("/save")
         public ModelAndView saveGuest(HttpServletRequest request,
-   			 HttpServletResponse response) throws Exception{             
+   			 HttpServletResponse response) throws Exception{          	
+        	
        	ModelAndView nextPage = new ModelAndView();
+       	boolean guestErr=false;
        	String guestE=request.getParameter("guestE");
 		String guestText=request.getParameter("guestText");
 		String guestPA=request.getParameter("guestPA");
 		guestText = new String(guestText.getBytes("8859_1"), "utf-8");
 		System.out.println(guestText);
 		
-		new GuestService().insert(new Guest(guestE, guestText, guestPA));
+		String regex = "^[_a-z0-9-]+(.[_a-z0-9-]+)*@(?:\\w+\\.)+\\w+$";   
+		Pattern p = Pattern.compile(regex);
+		Matcher m = p.matcher(guestE);
+		if(m.matches()) {
+			guestErr = true; 
+			  }
 		
-		request.setAttribute("message", guestE+"님의 방명록을 등록했습니다.");
+		if(guestErr){  
+			new GuestService().insert(new Guest(guestE, guestText, guestPA));			
+			request.setAttribute("message", guestE+"님의 방명록을 등록했습니다.");
+		}else{			
+			request.setAttribute("message", "Email 형식이 올바르지 않습니다.");
+		}
+		
+		
 		
 		nextPage.setViewName("result");
 		return nextPage;       

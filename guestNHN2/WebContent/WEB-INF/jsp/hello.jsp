@@ -11,11 +11,32 @@ import="java.util.ArrayList,dto.Guest,java.util.HashMap"
 <link href="css/bootstrap-responsive.css" rel="stylesheet"
 	media="screen">
 	<script type="text/javascript">
-	function guestInsert() {
-		document.guestInsertform.submit();
-		alert("방명록이 등록되었습니다.");
-	}
+	
+	$(document).ready(function(){
+		    var u_email = $('#email');
+		
+		    $('.btn_pass').click(function(){
+		        // 정규식 - 이메일 유효성 검사
+		        var regEmail = /([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+		        // 정규식 -전화번호 유효성 검사
+		        var regPhone = /^((01[1|6|7|8|9])[1-9]+[0-9]{6,7})|(010[1-9][0-9]{7})$/;
+		
+		        if( !u_email.val() ){
+		            alert('이메일주소를 입력 해 주세요');
+		            u_email.focus();
+		            return false;
+		        } else {
+		            if(!regEmail.test(u_email.val())) {
+		                alert('이메일 주소가 유효하지 않습니다');
+		                u_email.focus();
+		                return false;
+		            }
+		        }
+		    });
+		
+		});
 	</script>
+	<script src="http://code.angularjs.org/angular-1.0.0rc10.min.js"></script>
 
 </head>
 <body>
@@ -31,7 +52,7 @@ ${message}<br>
 				<!-- Email -->
 				<label class="control-label" for="username">E mail</label>
 				<div class="controls">
-					<input type="email" id="email" name="guestE" placeholder="Email"
+					<input type="email" id="email" name="guestE" ng-model="email" required placeholder="Email"
 						class="input-xlarge">
 				</div>
 			</div>
@@ -46,7 +67,7 @@ ${message}<br>
 			</div>
 		<br>
 		<textarea class="span8" rows="8" id="guestText" name="guestText" placeholder="내용을 입력하세요."></textarea><br>
-		<a href="javascript:guestInsert();" role="button" class="btn btn-inverse">방명록 쓰기</a></td>
+		<input type= "submit" role="button" class="btn btn-inverse" value="방명록쓰기"></td>
 						
 </form>
 	<c:forEach items="${requestScope.guestList}" var="guest">
