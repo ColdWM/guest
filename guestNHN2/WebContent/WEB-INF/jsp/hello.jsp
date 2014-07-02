@@ -36,7 +36,8 @@ import="java.util.ArrayList,dto.Guest,java.util.HashMap"
 		
 		});
 	</script>
-	<script src="http://code.angularjs.org/angular-1.0.0rc10.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
 
 </head>
 <body>
@@ -52,8 +53,9 @@ ${message}<br>
 				<!-- Email -->
 				<label class="control-label" for="username">E mail</label>
 				<div class="controls">
-					<input type="email" id="email" name="guestE" ng-model="email" required placeholder="Email"
-						class="input-xlarge">
+					<input type="email" id="email" name="guestE" ng-model="text" required class="input-xlarge">
+					<span class ="error" ng-show = "guestInsertform.guestE.$error.email">Not Valid email!!!!</span>
+					<tt>guestInsertform.$error.email = {{!!guestInsertform.$error.email}}</tt><br/>
 				</div>
 			</div>
 
